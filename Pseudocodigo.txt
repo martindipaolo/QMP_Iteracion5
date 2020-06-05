@@ -62,11 +62,11 @@ class AgregarPrenda implements Propuesta {
     Guardarropa guardarropa;
 
     aceptar(){
-        guardarropa.agregar(prenda);
+        guardarropa.agregarPrenda(prenda);
     }
 
     deshacer(){
-        guardarropa.quitar(prenda);
+        guardarropa.quitarPrenda(prenda);
     }
 }
 
@@ -75,10 +75,10 @@ class QuitarPrenda implements Propuesta {
     Guardarropa guardarropa;
 
     aceptar(){
-        guardarropa.quitar(prenda);
+        guardarropa.quitarPrenda(prenda);
     }
 
     deshacer(){
-        guardarropa.agregar(prenda);
+        guardarropa.agregarPrenda(prenda);
     }
 }
