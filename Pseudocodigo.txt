@@ -1,0 +1,84 @@
+class Prenda {...}
+
+class Usuario {
+    (...)
+
+    proponerAgregarPrenda(Prenda prenda, Guardarropa guardarropa){
+        guardarropa.nuevaPropuesta(new AgregarPrenda(guardarropa, prenda));
+    }
+
+    proponerQuitarPrenda(Prenda prenda, Guardarropa guardarropa){
+        guardarropa.nuevaPropuesta(new QuitarPrenda(guardarropa, prenda));
+    }
+}
+
+class Guardarropa {
+    string nombre;
+    string criterio;
+    List<Prenda> prendas;
+    List<Usuario> usuarios;
+    List<Propuesta> propuestasPendientes;
+    List<Propuesta> propuestasAceptadas;
+
+    void agregarPrenda(Prenda prenda){
+        this.prendas.add(prenda);
+    }
+
+    void quitarPrenda(Prenda prenda){
+        this.prendas.remove(prenda);
+    }
+
+    void aceptarPropuesta(Propuesta propuesta){
+        propuesta.aceptar();
+        propuestasPendientes.remove(propuesta);
+        propuestasAceptadas.add(propuesta);
+    }
+
+    void rechazarPropuesta(Propuesta propuesta){
+        propuestasPendientes.remove(propuesta);
+    }
+
+    void deshacerPropuestaAceptada(Propuesta propuesta){
+        propuesta.deshacer();
+        propuestasAceptadas.remove(propuesta);
+    }
+
+    void nuevaPropuesta(Propuesta propuesta){
+        this.propuestasPendientes.add(propuesta);
+    }
+
+
+}
+
+
+interface Propuesta {
+    void aceptar();
+    void deshacer();
+}
+
+
+class AgregarPrenda implements Propuesta {
+    Prenda prenda;
+    Guardarropa guardarropa;
+
+    aceptar(){
+        guardarropa.agregar(prenda);
+    }
+
+    deshacer(){
+        guardarropa.quitar(prenda);
+    }
+}
+
+class QuitarPrenda implements Propuesta {
+    Prenda prenda;
+    Guardarropa guardarropa;
+
+    aceptar(){
+        guardarropa.quitar(prenda);
+    }
+
+    deshacer(){
+        guardarropa.agregar(prenda);
+    }
+}
